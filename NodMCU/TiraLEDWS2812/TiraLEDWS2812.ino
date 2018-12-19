@@ -3,38 +3,32 @@
   #include <avr/power.h>
 #endif
 
-#define PIN            D1
-#define NUMPIXELS      16
+#define PIN            D1           //Numero De PIN
+#define NUMPIXELS      15           //Cantidad De LED
 
-// When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
-// Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
-// example for more information on possible values.
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
-int delayval = 500; // delay for half a second
+int delayval = 500; // Tiempo para enceder cada LED
 
 void setup() {
-  // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
+  
 #if defined (__AVR_ATtiny85__)
   if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
 #endif
-  // End of trinket special code
 
-  pixels.begin(); // This initializes the NeoPixel library.
+  pixels.begin(); // Se inicializa la libreria NeoPixel
 }
 
 void loop() {
 
-  // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
-
   for(int i=0;i<NUMPIXELS;i++){
 
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    pixels.setPixelColor(i, pixels.Color(0,150,0)); // Moderately bright green color.
+    // Valores RGB de cada LED
+    pixels.setPixelColor(i, pixels.Color(0,150,0)); // Color Verde, El valor indica la intensidad de brillo del LED.
 
-    pixels.show(); // This sends the updated pixel color to the hardware.
+    pixels.show();
 
-    delay(delayval); // Delay for a period of time (in milliseconds).
+    delay(delayval);
 
   }
 }
